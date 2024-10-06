@@ -35,8 +35,36 @@ const goalControllers = {
             });
         }
     },
-    updateGoal: (req, res) => {},
-    deleteGoal: (req, res) => {}
+    updateGoal: (req, res) => {
+        const { id } = req.params;
+        const { description, deadline, completed, priority, category } =
+            req.body;
+        const goal = Goal.getById(id);
+        if (goal) {
+            if (description && deadline && completed && priority && category) {
+                Goal.update(id, { description, deadline, completed, priority, category});
+                res.status(200).json(goal);
+            }
+            
+        } else {
+            res.status(404).json({
+                title: 'Goal not found',
+                message: 'Goal not found'
+            });
+        }
+    },
+    deleteGoal: (req, res) => {
+        const { id } = req.params;
+    const goal = Goal.getById(id);
+    if (goal) {
+        Goal.delete(id);
+        res.status(200).json(goal);
+    } else {
+        res.status(404).json({
+            title: 'Goal not found',
+            message: 'Goal not found'
+        })
+    }}
 };
 
 export default goalControllers;

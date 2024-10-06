@@ -66,7 +66,7 @@ class Goal {
         }
     }
 
-    static remove(id) {
+    static delete(id) {
         const goalExist = goals.find((goal) => goal.id === id);
         if (goalExist) {
             goals = goals.find((goal) => goal.id !== id);
